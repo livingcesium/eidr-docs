@@ -1,0 +1,40 @@
+# Documentation for `interface.py`
+
+### Method: `validate`
+
+
+**Description:**
+
+Validates the Batch object.
+
+
+
+**Returns:**
+
+|Type|Description|
+|----|-----------|
+| bool | Always returns True as Batch objects are considered valid by default. |
+
+
+---
+### Method: `objectify`
+
+
+**Description:**
+
+Converts the Batch object into its internal representation.
+This method is currently not implemented.
+
+
+
+## Missing docstrings
+
+- **Class** `ServiceBase`
+- **Class** `Batch`
+- **Method** `ServiceBase.__init__`
+- **Method** `ServiceBase.validate`
+- **Method** `ServiceBase.objectify`
+- **Method** `ServiceBase.serialize`
+- **Method** `ServiceBase.then`
+- **Method** `Batch.__init__`
+- **Method** `Batch.then`

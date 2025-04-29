@@ -1,0 +1,85 @@
+# Documentation for `query.py`
+
+## Class: `Query`
+
+
+**Description:**
+
+Service for executing EIDR queries against the API.
+
+Attributes:
+    name (str): The fixed service name, always "query".
+    response_type (str): The format of the response, either "simple", "ID", or a member of QueryResponseType.
+    QueryResponseType (Enum): Enumeration of supported response_type values:
+        - SIMPLE: returns simple metadata for each matching object
+        - ID: returns only the EIDR IDs
+
+
+### Method: `__init__`
+
+
+**Description:**
+
+Initialize a Query service instance. Must be placed within a request, see RegistryRequest.
+
+
+
+**Parameters:**
+
+|Name|Type|Description|
+|----|----|-----------|
+| doi | Optional[str] | An EIDR DOI to scope the query; if None, no DOI filter is applied. |
+| expression | Optional[str] | An XPath expression to filter results; defaults to None. |
+| page_num | Optional[int] | The page number for paginated results; must be present and non‑negative. |
+| page_size | Optional[int] | The number of items per page; must be present and non‑negative. |
+| continuation_token | Optional[str] | A token to resume a previous paginated query; defaults to None. |
+| extended_family | Optional[bool] | Whether to include extended family relationships in results; defaults to None. |
+| response_type | QueryResponseType or str | The desired response format, either SIMPLE or ID; defaults to SIMPLE. |
+
+---
+
+### Method: `base_obj_expression`
+
+
+**Description:**
+
+Construct an XPath expression for querying BaseObjectData fields.
+
+
+
+**Parameters:**
+
+|Name|Type|Description|
+|----|----|-----------|
+| structural_type | str or None | One of ["Abstraction", "Performance", "Digital", "Physical"] to filter by StructuralType. |
+| mode | str or None | One of ["Visual", "AudioVisual", "Audio", "Other"] to filter by Mode. |
+| referent_type | str or None | Value to filter by ReferentType. |
+| resource_name | str or None | Value to filter by ResourceName. |
+| alternate_resource_name | str or None | Value to filter by AlternateResourceName. |
+| original_language | str or None | Value to filter by OriginalLanguage. |
+| dubbed_language | str or None | Value to filter by DubbedLanguage. |
+| associated_org | str or None | Value to filter by AssociatedOrg. |
+| release_date | str or None | Value to filter by ReleaseDate. |
+| country_of_origin | str or None | Value to filter by CountryOfOrigin. |
+| status | str or None | Value to filter by Status. |
+| approximate_length | str or None | Value to filter by ApproximateLength. |
+| alternate_id | str or None | Value to filter by AlternateID. |
+| display_name | str or None | Value to filter by DisplayName. |
+| credits | str or None | Value to filter by Credits. |
+| registrant_extra | str or None | Value to filter by RegistrantExtra. |
+| description | str or None | Value to filter by Description. |
+
+**Returns:**
+
+|Type|Description|
+|----|-----------|
+| str | An XPath clause combining all provided filters with " AND ", or an empty string if no filters are given. |
+
+
+
+---
+## Missing docstrings
+
+- **Method** `Query.validate`
+- **Method** `Query.objectify`
+- **Function** `validate_param`

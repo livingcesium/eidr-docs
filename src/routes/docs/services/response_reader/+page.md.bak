@@ -1,0 +1,142 @@
+# Documentation for `response_reader.py`
+
+## Class: `ResponseReader`
+
+
+**Description:**
+
+A class to parse and handle responses from the API.
+Attributes:
+    obj: Parsed response object, which can be of various types such as Response, ServiceQueryResults, etc.
+    token: Optional token extracted from the response.
+    status: Tuple containing the status code and status message.
+    continuation_token: Optional continuation token for paginated responses.
+    admin_response: Boolean indicating if the response is an admin response.
+
+
+### Method: `__init__`
+
+
+**Description:**
+
+Initializes the ResponseReader by parsing the response string.
+
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| res_str | The response string to parse. |
+| driver | Optional API driver instance. |
+
+### Method: `from_xml`
+
+
+**Description:**
+
+Creates a ResponseReader instance from an XML string.
+
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| xml | The XML string to parse. |
+
+**Returns:**
+|Description|
+|-----------|
+| A ResponseReader instance. |
+
+
+---
+### Method: `__get_item__`
+
+
+**Description:**
+
+Retrieves a field from the response object using the given key.
+
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| key | The key of the field to retrieve. |
+
+**Returns:**
+|Description|
+|-----------|
+| The value of the field. |
+
+
+---
+### Method: `get_field`
+
+
+**Description:**
+
+Retrieves a specific field from the response object.
+
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| key | The key of the field to retrieve. |
+
+**Returns:**
+|Description|
+|-----------|
+| The value of the field. |
+
+
+---
+**Raises:**
+
+- Exception: If the field does not exist or an error occurs.
+
+### Method: `get_fields`
+
+
+**Description:**
+
+Retrieves multiple fields from the response object.
+
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| kwargs | The keys of the fields to retrieve. |
+
+**Returns:**
+|Description|
+|-----------|
+| A list of field values. |
+
+
+---
+### Method: `get_simple_metaData`
+
+
+**Description:**
+
+Retrieves a list of SimpleMetadata objects from the response.
+
+
+
+**Returns:**
+|Description|
+|-----------|
+| A list of SimpleMetadata objects. |
+
+
+
+---
+## Missing docstrings
+
+- **Function** `attempt`
+- **Function** `test_query`
+- **Function** `test`
+- **Class** `ResponseType`

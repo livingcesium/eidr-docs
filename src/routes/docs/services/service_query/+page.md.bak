@@ -1,0 +1,92 @@
+# Documentation for `service_query.py`
+
+## Class: `ServiceQuery`
+
+
+**Description:**
+
+Service for querying content delivery services present in the EIDR API.
+
+
+### Method: `__init__`
+
+
+**Description:**
+
+Initialize a ServiceQuery instance for retrieving service records.
+
+
+
+**Parameters:**
+|Name|Type|Description|
+|----|----|-----------|
+| expression | Optional[str] | An XPath or search expression to filter services; defaults to None. |
+| page_number | Optional[int] | The page index for paginated results; must be ≥ 1. Defaults to 1. |
+| page_size | Optional[int] | The number of items per page; must be ≥ 1. Defaults to 1. |
+| continuation_token | Optional[str] | A token to continue a previous paginated query; defaults to None. |
+
+### Method: `service_expression`
+
+
+**Description:**
+
+Build an XPath query expression for Service resources.
+
+
+
+**Parameters:**
+|Name|Type|Description|
+|----|----|-----------|
+| id | str or None | Filter by the Service ID. |
+| display_name | str or None | Filter by the service’s DisplayName. |
+| alternate_service_name | str or None | Filter by AlternateServiceName. |
+| description | str or None | Filter by service Description. |
+| other_affiliation | str or None | Filter by OtherAffiliation. |
+| active | str or None | Filter by Active status. |
+| primary_time_zone | str or None | Filter by PrimaryTimeZone. |
+| region | str or None | Filter by Region. |
+| primary_audio_language | str or None | Filter by PrimaryAudioLanguage. |
+| delivery_model | str or None | Filter by DeliveryModel. |
+
+**Returns:**
+|Type|Description|
+|----|-----------|
+| str | A combined XPath clause string using " AND " between each filter, |
+|  | or an empty string if no parameters are provided. |
+
+
+---
+### Method: `kernel_metadata_expression`
+
+
+**Description:**
+
+Build an XPath query expression for KernelMetadata resources.
+
+
+**Parameters:**
+|Name|Description|
+|----|-----------|
+| referent_doi_name | Referent name according to DOI |
+| primary_referent_type | Referent type |
+| registration_agency_doi_name | Name of the registration agency according to DOI |
+| issue_date | Date of issue |
+| issue_number | Issue number |
+| party_principal_name | Principal name of the party tied to this service |
+| party_abbreviated_name | Abbreviated name of the party tied to this service |
+| party_structural_type | Structural type of the relevant party |
+| associated_role | Role of the service |
+| associated_territory | Territory associated with the service |
+
+**Returns:**
+|Description|
+|-----------|
+| A combined XPath clause string using " AND " between each filter, |
+
+
+
+---
+## Missing docstrings
+
+- **Method** `ServiceQuery.validate`
+- **Method** `ServiceQuery.objectify`

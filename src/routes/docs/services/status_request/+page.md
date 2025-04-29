@@ -1,0 +1,71 @@
+# Documentation for `status_request.py`
+
+## Class: `StatusRequest`
+
+
+**Description:**
+
+Represents a request to query the status of an operation.
+
+Attributes:
+    name (str): The name of the service.
+
+
+### Method: `__init__`
+
+
+**Description:**
+
+Initializes a StatusRequest instance.
+
+
+
+**Parameters:**
+
+|Name|Type|Description|
+|----|----|-----------|
+| token | str or None | The authentication token. |
+| user_id | str or None | The ID of the user making the request. |
+| registrant | str or None | The registrant identifier. |
+| status | str or None | The status to query. Must be one of the allowed status options. |
+| page_size | int | The number of results per page. Defaults to 1. |
+| page_number | int | The page number to retrieve. Defaults to 1. |
+| after | str or None | The starting point for the query. |
+| to | str or None | The end point for the query. |
+| from_value | str or None | The starting value for the query. |
+| continuation_token | str or None | A token to continue a previous query. |
+
+**Raises:**
+
+- ValueError: If the status is invalid or the registrant does not match the required format.
+
+---
+
+### Method: `objectify`
+
+
+**Description:**
+
+Converts the request parameters into an object representation.
+
+This method creates an `OperationType` object with the provided arguments.
+
+
+---
+
+### Method: `validate`
+
+
+**Description:**
+
+Validates the request.
+
+
+
+**Returns:**
+
+|Type|Description|
+|----|-----------|
+| bool | Always returns True. not implemented. |
+
+---
