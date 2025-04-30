@@ -5,5 +5,5 @@
 
 **Description:**
 
-Configuration file management for the application. See example-config.xml for details
+Configuration file management for the application. See the quick-start guide for details
 

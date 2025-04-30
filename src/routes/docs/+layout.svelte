@@ -6,13 +6,17 @@ import SidebarNav from "$lib/components/SidebarNav.svelte";
 
 <SidebarNav/>
 
-<div class="content bg-gray-800 w-full text-gray-300">
+<div class="content bg-gray-800 w-full min-h-screen text-gray-300">
     <div class="px-80 py-32 text-xl" in:fade={{duration: 500 }}>
         <slot />
     </div>
 </div>
 
 <style>
+    :global(.content body) {
+        background-color: #1e2939;
+    }
+
     :global(.content code) {
         color: #fff;
         padding: 4px;

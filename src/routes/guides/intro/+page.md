@@ -1,284 +1,49 @@
+<p align="center">
+    <img src="https://img.shields.io/github/license/EIDR-ID/python" alt="License">
+</p>
 
+<h1 align="center">EIDR Python SDK</h1>
+<p align="center">
+  A friendly Python client for the <strong>Entertainment Identifier Registry</strong>—the global unique-ID system for film &amp; TV assets.
+</p>
 
+---
 
-# Documentation for `manager.py`
+## ✨ Features
+- **Config file or dictionary** – auto-discovers credentials from `~/.eidr/config`, or pass in a dictionary with your login
+- **Rich service objects** – `Query`, `Resolve`, `Register`, `Status`, and more.
+- **File IO** for verbose records.
+- **Type-Hinted Responses** for common responses, create automated workflows easily!
+- **Async** support for operations with non-immediate responses.
 
+---
 
-## Class: `SessionManager`
+## 📦 Installation
 
+```bash
 
-**Description:**
-
-A class to manage a session with the EIDR API, using a config file.
-Maintains a list of tokens for the session, and exposes methods to interact with the API.
-
-
-### Method: `from_default`
-
-
-**Description:**
-
-Create a SessionManager instance using the default config file.
-
-
-**Returns:**
-
-
-- SessionManager: An instance of SessionManager with the default API_Driver.
-
-Example Usage
-```python
-t = Toilet()
-t.insert(Shit())
-print(t.status)
-```
-Expected Output
-```python
-Shitted in
+git clone https://github.com/EIDR-ID/python.git
+cd python
+python3 -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install .
 ```
 
-### Method: `post`
+> **Requires** Python ≥ 3.8
 
+---
 
-**Description:**
+## 🏗️ General Workflow (90 % of use-cases)
 
-Post a request to the EIDR API.
+| Step | Action | Code Snippet |
+|------|--------|-------------|
+| 1 | **Create** a `SessionManager` (auth & transport) | `session = SessionManager.from_default()` |
+| 2 | **Instantiate** a service operation (`Query`, `RegistrationService`, …) | `q = Query(... )` |
+| 3 | **Wrap** operations in `RegistryRequest` | `req = RegistryRequest([q])` |
+| 4 | **Execute** via `session.query(req)`, `session.register(req)`, etc. | `ids, cont = session.query(req)` |
+| 5 | **Follow** continuation tokens for pagination | pass `cont` into the next call |
+| 6 | **Resolve** DOIs for detailed metadata | `meta = session.resolve(ids[0])` |
+| 7 | **Poll** status for async jobs | `session.status(status_req)` / `session.future_status(...)` |
 
+---
 
-**Parameters:**
-
-- **req**: The request to post.
-- **res_type**: Unused.
-- **params**: Extra HTTP parameters to pass over
-
-**Returns:**
-
-
-- ResponseReader: The response from the API wrapped in a helper class.
-
-### Method: `resolve`
-
-
-**Description:**
-
-Resolve an ID to a FullMeta object (will be streamlined into file paradigm).
-
-
-**Parameters:**
-
-- **resolve_mode**: 
-- **id**: 
-
-**Returns:**
-
-
-- FullMeta: The resolved FullMeta object. (for now)
-
-### Method: `query`
-
-
-**Description:**
-
-Query the EIDR API with a query request.
-
-
-**Parameters:**
-
-- **q**: A RegistryRequest object containing the query. Must be of type Query.
-- **as_file**: Whether to save the results to a file named "query_results.json".
-
-**Returns:**
-
-
-- Tuple[List[SimpleMetadata] | List[str], str]:
-- A tuple containing a list of SimpleMetadata and a continuation token, OR
-- A tuple containing a list of EIDR ids and a continuation token.
-
-### Method: `status`
-
-
-**Description:**
-
-Get the status of an operation using the provided service.
-
-
-**Parameters:**
-
-- **s**: The status request to post.
-
-**Returns:**
-
-
-- Tuple[List[dict], str]: A tuple containing a list of operation statuses and a continuation token.
-
-### Method: `future_status`
-
-
-**Description:**
-
-Get the status of an operation, for use in an async pipeline.
-
-
-**Parameters:**
-
-- **s**: The status request to post.
-- **wait**: The time to wait between retries.
-- **retries**: The number of retries to attempt.
-
-**Returns:**
-
-
-- List[Future]: A list of futures representing the status of the operation.
-
-### Method: `service_resolve`
-
-
-**Description:**
-
-Resolve a service to a ServiceMeta object.
-
-
-**Parameters:**
-
-- **id**: ID of the service in the EIDR registry.
-- **service_doi**: The type of response desired
-- **followAlias**: Whether to follow the alias of the service when resolving.
-
-**Returns:**
-
-
-- ServiceMeta: The resolved ServiceMeta object.
-
-### Method: `service_query`
-
-
-**Description:**
-
-Query the EIDR API with a service query request.
-
-
-**Parameters:**
-
-- **s**: The service query/queries request to post.
-
-**Returns:**
-
-
-- List[ServiceMeta]: A list of ServiceMeta objects representing the services that match the query.
-
-### Method: `party_resolve`
-
-
-**Description:**
-
-Resolve a party to a PartyMeta object.
-
-
-**Parameters:**
-
-- **party_id**: The ID of the party to resolve.
-- **resolve_mode**: The type of response desired.
-
-**Returns:**
-
-
-- PartyMeta: The resolved PartyMeta object.
-
-### Method: `user_resolve`
-
-
-**Description:**
-
-Resolve a user.
-
-
-**Parameters:**
-
-- **user_doi**: The ID of the user to resolve.
-- **resolve_mode**: The type of response desired.
-
-**Returns:**
-
-
-- ResponseReader: The response from the API wrapped in a helper class.
-
-### Method: `change_user_password`
-
-
-**Description:**
-
-Change the password of a user. The user's current credentials must be provided in the config file.
-
-
-**Parameters:**
-
-- **user_doi**: The ID of the user to change the password for.
-- **password**: The new password to set for the user.
-
-**Returns:**
-
-
-
-### Method: `party_query`
-
-
-**Description:**
-
-Query the EIDR API with a party query request.
-
-
-**Parameters:**
-
-- **p**: The party query request to post.
-- **full**: Whether to return the full party metadata or just the ID.
-
-**Returns:**
-
-
-- List[PartyMeta | str]: A list of PartyMeta objects (or IDs) representing the parties that match the query.
-
-### Method: `permissions`
-
-
-**Description:**
-
-Get a list of which parties have permissions to perform the according operation.
-
-
-**Parameters:**
-
-- **object_id**: The ID of the object to get permissions for.
-- **acl_type**: The type of permissions to get.
-
-**Returns:**
-
-
-- List[str]: A list of party IDs that have permissions to perform the operation.
-
-### Method: `modification_base`
-
-
-**Description:**
-
-Get the base metadata to perform a modification from.
-
-
-**Parameters:**
-
-- **object_id**: The ID of the object to get the base metadata for.
-- **modification_type**: The type of modification to perform.
-
-**Returns:**
-
-
-- dict: A dictionary containing the base metadata for modification.
-
-
-## Missing docstrings
-
-- **Class** `AdminResponseError`
-- **Function** `check_err`
-- **Function** `test_permissions`
-- **Function** `test_query`
-- **Function** `test_modification_base`
-- **Method** `SessionManager.__init__`
+<a href="./start">Get Started!</a>

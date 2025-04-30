@@ -1,13 +1,16 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import {mdsvex} from "mdsvex";
-import * as path from "node:path";
+import rehypePrism from 'rehype-prism-plus';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
-	preprocess: [mdsvex({extension: '.md'}), vitePreprocess()],
+	preprocess: [mdsvex({
+		extension: '.md',
+		rehypePlugins: [rehypePrism, { ignoreMissing: true }]
+	}), vitePreprocess()],
 	extensions: ['.svelte', '.md'],
 
 	kit: {

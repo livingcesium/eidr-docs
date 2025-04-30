@@ -5,15 +5,15 @@
 
 **Description:**
 
-Validates the Batch object.
+Allows for each service object to self validate on creation.
 
 
 
 **Returns:**
 
-|Type|Description|
-|----|-----------|
-| bool | Always returns True as Batch objects are considered valid by default. |
+| Type | Description                         |
+|------|-------------------------------------|
+| bool | Whether the service object is valid |
 
 
 ---
@@ -22,9 +22,7 @@ Validates the Batch object.
 
 **Description:**
 
-Converts the Batch object into its internal representation.
-This method is currently not implemented.
-
+Converts the object into its internal representation (based on the XML schema).
 
 
 ## Missing docstrings
