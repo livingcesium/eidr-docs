@@ -23,7 +23,7 @@
             <!-- Headline -->
             <h1
                     in:fade={{ delay: 400, duration: 500 }}
-                    class="text-5xl pb-16"
+                    class="text-5xl pb-16 text-black"
             >
                 Introducing the EIDR Python SDK
             </h1>
